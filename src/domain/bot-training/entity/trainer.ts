@@ -1,7 +1,6 @@
-import { InvalidNameError } from "../../../@shared/error/invalid-name-error";
+import { InvalidNameError } from '../../../@shared/error/invalid-name-error';
 
 export class Trainer {
-
   private readonly MIN_NAME_LENGTH = 3;
   private readonly MAX_NAME_LENGTH = 20;
 
@@ -26,10 +25,17 @@ export class Trainer {
   }
 
   private setName(name: string): void {
-    if (!name || name.length < this.MIN_NAME_LENGTH || name.length > this.MAX_NAME_LENGTH) {
-      throw new InvalidNameError(name, this.MIN_NAME_LENGTH, this.MAX_NAME_LENGTH)
+    if (
+      !name ||
+      name.length < this.MIN_NAME_LENGTH ||
+      name.length > this.MAX_NAME_LENGTH
+    ) {
+      throw new InvalidNameError(
+        name,
+        this.MIN_NAME_LENGTH,
+        this.MAX_NAME_LENGTH,
+      );
     }
-    this.name = name
+    this.name = name;
   }
-
 }
