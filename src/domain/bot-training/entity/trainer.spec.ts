@@ -1,5 +1,5 @@
 import { Trainer } from './trainer';
-import { InvalidNameError } from '../../../@shared/error/invalid-name-error';
+import { InvalidNameError } from '../../../@shared/error/invalid-name.error';
 
 describe('Trainer', () => {
   let trainer: Trainer;

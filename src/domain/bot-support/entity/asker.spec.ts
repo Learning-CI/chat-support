@@ -1,5 +1,5 @@
-import { InvalidNameError } from '../../../@shared/error/invalid-name-error';
-import { InvalidAskerIdError } from '../../../@shared/error/invalid-number-error';
+import { InvalidNameError } from '../../../@shared/error/invalid-name.error';
+import { InvalidAskerIdError } from '../error/invalid-asker-id.error';
 import { Asker } from './asker';
 
 type Props = {

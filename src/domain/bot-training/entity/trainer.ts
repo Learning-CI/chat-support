@@ -1,5 +1,5 @@
-import { InvalidNameError } from '../../../@shared/error/invalid-name-error';
-import { InvalidTrainerIdError } from '../../../@shared/error/invalid-number-error';
+import { InvalidNameError } from '../../../@shared/error/invalid-name.error';
+import { InvalidTrainerIdError } from '../error/invalid-trainer-id.error';
 
 export class Trainer {
   private readonly MIN_NAME_LENGTH = 3;

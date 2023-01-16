@@ -1,14 +1,11 @@
 import { Trainer } from './trainer';
 import { TrainingHistory } from './training-history';
-import {
-  InvalidAnswerError,
-  InvalidQuestionError,
-} from '../../../@shared/error/invalid-name-error';
-import {
-  InvalidBotIdError,
-  InvalidTrainerIdError,
-  InvalidTrainingHistoryIdError,
-} from '../../../@shared/error/invalid-number-error';
+import {} from '../../../@shared/error/invalid-string.error';
+import { InvalidQuestionError } from '../error/invalid-question.error';
+import { InvalidAnswerError } from '../error/invalid-answer.error';
+import { InvalidTrainingHistoryIdError } from '../error/invalid-training-history-id.error';
+import { InvalidBotIdError } from '../error/invalid-bot-id.error';
+import { InvalidTrainerIdError } from '../error/invalid-trainer-id.error';
 
 describe('TrainingHistory', () => {
   const TRAINING_HISTORY_ID = 1;

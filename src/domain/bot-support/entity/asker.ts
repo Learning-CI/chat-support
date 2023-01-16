@@ -1,7 +1,9 @@
-import { InvalidNameError } from '../../../@shared/error/invalid-name-error';
-import { InvalidAskerIdError } from '../../../@shared/error/invalid-number-error';
+import { InvalidNameError } from '../../../@shared/error/invalid-name.error';
+import { MessageSender } from '../interface/message-sender.interface';
+import { SenderType } from '../enum/sender-type.enum';
+import { InvalidAskerIdError } from '../error/invalid-asker-id.error';
 
-export class Asker {
+export class Asker implements MessageSender {
   private readonly MIN_NAME_LENGTH = 5;
   private readonly MAX_NAME_LENGTH = 50;
 
@@ -11,6 +13,10 @@ export class Asker {
   constructor(id: number, name: string) {
     this.setId(id);
     this.setName(name);
+  }
+
+  public getSenderType(): SenderType {
+    return SenderType.ASKER;
   }
 
   private setId(id: number): void {
