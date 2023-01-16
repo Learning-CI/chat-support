@@ -5,25 +5,23 @@ describe('Trainer', () => {
   let trainer: Trainer;
 
   const NAME = 'John Doe';
-  const ID = 1;
 
   beforeEach(() => {
-    trainer = new Trainer(ID, NAME);
+    trainer = new Trainer(1, NAME);
   });
 
   test('should create a trainer with a valid name', () => {
     expect(trainer).toBeDefined();
-    expect(trainer.getId()).toBe(ID);
     expect(trainer.getName()).toBe(NAME);
   });
 
   test('should throw an error when creating a trainer with a name shorter than 3 characters', () => {
-    expect(() => new Trainer(2, 'Jo')).toThrow(InvalidNameError);
+    expect(() => new Trainer(1, 'Jo')).toThrow(InvalidNameError);
   });
 
   test('should throw an error when creating a trainer with a name longer than 20 characters', () => {
     const longName = 'a'.repeat(21);
-    expect(() => new Trainer(2, longName)).toThrow(InvalidNameError);
+    expect(() => new Trainer(1, longName)).toThrow(InvalidNameError);
   });
 
   test("should update the trainer's name with a valid name", () => {
