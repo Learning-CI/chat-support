@@ -22,3 +22,6 @@ jobs:
 
     - name: Run tests
       run: npm run test:cov
+
+    - name: Report coverage
+      run: npx coveralls < coverage/lcov.info
