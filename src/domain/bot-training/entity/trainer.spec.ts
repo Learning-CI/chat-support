@@ -1,5 +1,5 @@
 import { Trainer } from './trainer';
-import { InvalidNameError } from '../../../@shared/error/invalid-name-error';
+import { InvalidNameError } from '../../../@shared/error/invalid-name.error';
 
 describe('Trainer', () => {
   let trainer: Trainer;
@@ -8,6 +8,11 @@ describe('Trainer', () => {
 
   beforeEach(() => {
     trainer = new Trainer(1, NAME);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
   });
 
   test('should create a trainer with a valid name', () => {

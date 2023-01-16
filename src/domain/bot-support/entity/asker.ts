@@ -1,9 +1,11 @@
 import { InvalidNameError } from '../../../@shared/error/invalid-name.error';
-import { InvalidTrainerIdError } from '../error/invalid-trainer-id.error';
+import { MessageSender } from '../interface/message-sender.interface';
+import { SenderType } from '../enum/sender-type.enum';
+import { InvalidAskerIdError } from '../error/invalid-asker-id.error';
 
-export class Trainer {
-  private readonly MIN_NAME_LENGTH = 3;
-  private readonly MAX_NAME_LENGTH = 20;
+export class Asker implements MessageSender {
+  private readonly MIN_NAME_LENGTH = 5;
+  private readonly MAX_NAME_LENGTH = 50;
 
   private id: number;
   private name: string;
@@ -13,14 +15,18 @@ export class Trainer {
     this.setName(name);
   }
 
+  public getSenderType(): SenderType {
+    return SenderType.ASKER;
+  }
+
   private setId(id: number): void {
-    if (id <= 0) {
-      throw new InvalidTrainerIdError(id);
+    if (!id || id <= 0) {
+      throw new InvalidAskerIdError(id);
     }
     this.id = id;
   }
 
-  private setName(name: string): void {
+  private setName(name: string) {
     if (
       !name ||
       name.length < this.MIN_NAME_LENGTH ||
@@ -41,9 +47,5 @@ export class Trainer {
 
   public getName(): string {
     return this.name;
-  }
-
-  public changeName(newName: string): void {
-    this.setName(newName);
   }
 }
