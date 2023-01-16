@@ -17,7 +17,13 @@ export class InvalidTrainerIdError extends InvalidNumberError {
 }
 
 export class InvalidTrainingHistoryIdError extends InvalidNumberError {
-  constructor(trainerId: number) {
-    super('trainerId', trainerId);
+  constructor(trainingHistoryId: number) {
+    super('trainingHistoryId', trainingHistoryId);
+  }
+}
+
+export class InvalidAskerIdError extends InvalidNumberError {
+  constructor(askerId: number) {
+    super('askerId', askerId);
   }
 }

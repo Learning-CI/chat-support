@@ -10,6 +10,11 @@ describe('Trainer', () => {
     trainer = new Trainer(1, NAME);
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+  });
+
   test('should create a trainer with a valid name', () => {
     expect(trainer).toBeDefined();
     expect(trainer.getName()).toBe(NAME);
