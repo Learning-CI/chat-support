@@ -1,5 +1,5 @@
-import { MessageSender } from '../interface/message-sender.interface';
-import { SenderType } from '../enum/sender-type.enum';
+import { MessageSender } from '../../domain/bot-support/interface/message-sender.interface';
+import { SenderType } from '../../domain/bot-support/enum/sender-type.enum';
 
 export class Bot implements MessageSender {
   private id: number;

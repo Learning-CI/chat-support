@@ -1,5 +1,5 @@
 import { Asker } from './asker';
-import { Bot } from './bot';
+import { Bot } from '../../../@shared/entity/bot';
 import { ConversationStatus } from '../enum/conversation-status.enum';
 import { InvalidConversationStatusError } from '../error/invalid-conversation-status.error';
 import { Message } from './message';

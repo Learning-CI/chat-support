@@ -1,31 +1,41 @@
 import { Trainer } from './trainer';
 import { InvalidQuestionError } from '../error/invalid-question.error';
-import { InvalidAnswerError } from '../error/invalid-answer.error';
 import { InvalidTrainingHistoryIdError } from '../error/invalid-training-history-id.error';
 import { InvalidBotIdError } from '../error/invalid-bot-id.error';
 import { InvalidTrainerIdError } from '../error/invalid-trainer-id.error';
+import { InvalidBotFeedbackError } from '../error/invalid-bot-feedback.error';
+import { InvalidAnswerError } from '../error/invalid-answer.error';
 
 export class TrainingHistory {
   private readonly MIN_QUESTION_LENGTH = 5;
   private readonly MAX_QUESTION_LENGTH = 1000;
 
+  private readonly MIN_ANSWER_LENGTH = 5;
+  private readonly MAX_ANSWER_LENGTH = 1000;
+
   private id: number;
   private botId: number;
   private trainer: Trainer;
   private question: string;
-  private answer?: string;
-  private answeredAt?: Date;
+  private answer: string;
+  private botFeedback?: string;
+  private botFeedbackAt?: Date;
 
-  constructor(id: number, botId: number, trainer: Trainer, question: string) {
-    this.setId(id);
+  constructor(
+    botId: number,
+    trainer: Trainer,
+    question: string,
+    answer: string,
+  ) {
     this.setBotId(botId);
     this.setTrainer(trainer);
     this.setQuestion(question);
+    this.setAnswer(answer);
   }
 
-  public registerAnswer(answer: string): void {
-    this.setAnswer(answer);
-    this.answeredAt = new Date();
+  public registerBotFeedback(botFeedback: string): void {
+    this.setBotFeedback(botFeedback);
+    this.botFeedbackAt = new Date();
   }
 
   private setId(id: number): void {
@@ -66,10 +76,25 @@ export class TrainingHistory {
   }
 
   private setAnswer(answer: string) {
-    if (!answer || answer.length <= 0) {
-      throw new InvalidAnswerError();
+    if (
+      !answer ||
+      answer.length < this.MIN_ANSWER_LENGTH ||
+      answer.length > this.MAX_ANSWER_LENGTH
+    ) {
+      throw new InvalidAnswerError(
+        answer,
+        this.MIN_ANSWER_LENGTH,
+        this.MAX_ANSWER_LENGTH,
+      );
     }
     this.answer = answer;
+  }
+
+  private setBotFeedback(botFeedback: string) {
+    if (!botFeedback || botFeedback.length <= 0) {
+      throw new InvalidBotFeedbackError();
+    }
+    this.botFeedback = botFeedback;
   }
 
   private isInvalidNumberId(number: number) {
@@ -96,7 +121,11 @@ export class TrainingHistory {
     return this.answer;
   }
 
-  public getAnsweredAt(): Date {
-    return this.answeredAt;
+  public getBotFeedback(): string {
+    return this.botFeedback;
+  }
+
+  public getBotFeedbackAt(): Date {
+    return this.botFeedbackAt;
   }
 }

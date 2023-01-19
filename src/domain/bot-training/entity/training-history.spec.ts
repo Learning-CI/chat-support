@@ -2,13 +2,11 @@ import { Trainer } from './trainer';
 import { TrainingHistory } from './training-history';
 import {} from '../../../@shared/error/invalid-string.error';
 import { InvalidQuestionError } from '../error/invalid-question.error';
-import { InvalidAnswerError } from '../error/invalid-answer.error';
-import { InvalidTrainingHistoryIdError } from '../error/invalid-training-history-id.error';
 import { InvalidBotIdError } from '../error/invalid-bot-id.error';
 import { InvalidTrainerIdError } from '../error/invalid-trainer-id.error';
+import { InvalidBotFeedbackError } from '../error/invalid-bot-feedback.error';
 
 describe('TrainingHistory', () => {
-  const TRAINING_HISTORY_ID = 1;
   const BOT_ID = 2;
   const TRAINER_ID = 3;
   let trainer: Trainer;
@@ -17,10 +15,10 @@ describe('TrainingHistory', () => {
   beforeEach(() => {
     trainer = new Trainer(TRAINER_ID, 'John Doe');
     trainingHistory = new TrainingHistory(
-      TRAINING_HISTORY_ID,
       BOT_ID,
       trainer,
       'What is DDD?',
+      'DDD is Domain Driven Design',
     );
   });
 
@@ -31,24 +29,20 @@ describe('TrainingHistory', () => {
 
   describe('constructor', () => {
     it('should set the id, botId, trainer, and question', () => {
-      expect(trainingHistory.getId()).toEqual(TRAINING_HISTORY_ID);
       expect(trainingHistory.getBotId()).toEqual(BOT_ID);
       expect(trainingHistory.getTrainer()).toEqual(trainer);
       expect(trainingHistory.getQuestion()).toEqual('What is DDD?');
-    });
-    it('should throw an error when passing an invalid id', () => {
-      expect(
-        () => new TrainingHistory(0, BOT_ID, trainer, 'What is DDD?'),
-      ).toThrow(InvalidTrainingHistoryIdError);
-      expect(
-        () => new TrainingHistory(undefined, BOT_ID, trainer, 'What is DDD?'),
-      ).toThrow(InvalidTrainingHistoryIdError);
     });
 
     it('should throw an error when passing an invalid botId', () => {
       expect(
         () =>
-          new TrainingHistory(TRAINING_HISTORY_ID, 0, trainer, 'What is DDD?'),
+          new TrainingHistory(
+            0,
+            trainer,
+            'What is DDD?',
+            'DDD is Domain Driven Design',
+          ),
       ).toThrow(InvalidBotIdError);
     });
 
@@ -56,38 +50,37 @@ describe('TrainingHistory', () => {
       expect(
         () =>
           new TrainingHistory(
-            TRAINING_HISTORY_ID,
             BOT_ID,
             undefined,
             'What is DDD?',
+            'DDD is Domain Driven Design',
           ),
       ).toThrow(InvalidTrainerIdError);
     });
 
     it('should throw an error when passing an invalid question', () => {
       expect(
-        () => new TrainingHistory(TRAINING_HISTORY_ID, BOT_ID, trainer, 'abc'),
+        () => new TrainingHistory(BOT_ID, trainer, 'que', 'answer example'),
       ).toThrow(InvalidQuestionError);
     });
   });
 
   describe('registerAnswer', () => {
     it('should set the answer and answeredAt', () => {
-      trainingHistory.registerAnswer('Domain-Driven Design');
-      expect(trainingHistory.getAnswer()).toEqual('Domain-Driven Design');
-      expect(trainingHistory.getAnsweredAt()).toBeInstanceOf(Date);
+      trainingHistory.registerBotFeedback('I learned how to answer questions');
+      expect(trainingHistory.getBotFeedback()).toEqual(
+        'I learned how to answer questions',
+      );
+      expect(trainingHistory.getBotFeedbackAt()).toBeInstanceOf(Date);
     });
     it('should throw an error when passing an invalid answer', () => {
-      expect(() => trainingHistory.registerAnswer('')).toThrow(
-        InvalidAnswerError,
+      expect(() => trainingHistory.registerBotFeedback('')).toThrow(
+        InvalidBotFeedbackError,
       );
     });
   });
 
   describe('getters', () => {
-    it('should return the id', () => {
-      expect(trainingHistory.getId()).toEqual(TRAINING_HISTORY_ID);
-    });
     it('should return the botId', () => {
       expect(trainingHistory.getBotId()).toEqual(BOT_ID);
     });
