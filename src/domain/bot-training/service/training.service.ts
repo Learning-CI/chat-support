@@ -4,23 +4,19 @@ import { TrainingHistory } from '../entity/training-history';
 import { TrainingHistoryRepository } from '../repository/training-history.repository';
 
 export class TrainingService {
-  private constructor(
+  constructor(
     private readonly trainingHistoryRepository: TrainingHistoryRepository,
   ) {}
 
   async train(
     bot: Bot,
     trainer: Trainer,
-    question: string,
-    answer: string,
+    newTrainingHistory: TrainingHistory,
   ): Promise<void> {
-    const trainingHistory = new TrainingHistory(
-      bot.getId(),
-      trainer,
-      question,
-      answer,
+    const savedHistory = await this.trainingHistoryRepository.create(
+      newTrainingHistory,
     );
-    await this.trainingHistoryRepository.create(trainingHistory);
-    // send message to queue.
+    console.log({ savedHistory });
+    return null;
   }
 }
