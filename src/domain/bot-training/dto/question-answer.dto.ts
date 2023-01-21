@@ -1,11 +1,11 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { QuestionAndAnswerInterface } from '../../../app/bot-training/api/requests/question-answer.interface';
 
 export class QuestionAndAnswerDto implements QuestionAndAnswerInterface {
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsString()
   question: string;
 
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsString()
   answer: string;
 }

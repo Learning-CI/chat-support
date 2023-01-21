@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TrainingHandlerService } from '../../../domain/bot-training/service/training-handler.service';
-import { BotTrainingController } from '../../bot-training/api/bot-training.controller';
-import { NestEnvConfigService } from '../../env-config/nest-env-config.service';
+import { BotTrainingController } from '../../bot-training/api/nest/bot-training.controller';
+import { NestEnvConfigService } from '../../env-config/nest/nest-env-config.service';
 import { AppController } from './app.controller';
 
 @Module({

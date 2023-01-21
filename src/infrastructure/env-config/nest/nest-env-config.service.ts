@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import {
   EnvConfigService,
   DatabaseConfig,
-} from '../../@shared/env-config/env-config.interface';
+} from '../../../@shared/env-config/env-config.interface';
 
 @Injectable()
 export class NestEnvConfigService implements EnvConfigService {

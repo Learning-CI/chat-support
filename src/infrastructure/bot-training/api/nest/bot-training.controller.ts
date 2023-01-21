@@ -1,8 +1,8 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { QuestionAndAnswerDto } from '../../../domain/bot-training/dto/question-answer.dto';
-import { TrainingHandlerService } from '../../../domain/bot-training/service/training-handler.service';
-import { Endpoint } from '../../../app/endpoint.enum';
-import { BotTrainingControllerInterface } from '../../../app/bot-training/api/bot-training-controller.interface';
+import { QuestionAndAnswerDto } from '../../../../domain/bot-training/dto/question-answer.dto';
+import { TrainingHandlerService } from '../../../../domain/bot-training/service/training-handler.service';
+import { Endpoint } from '../../../../app/endpoint.enum';
+import { BotTrainingControllerInterface } from '../../../../app/bot-training/api/bot-training-controller.interface';
 
 @Controller(Endpoint.BOT_TRAINING)
 export class BotTrainingController implements BotTrainingControllerInterface {
