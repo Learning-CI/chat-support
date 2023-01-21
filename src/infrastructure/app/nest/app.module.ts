@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { TrainingHandlerService } from '../../../domain/bot-training/service/training-handler.service';
+import { BotTrainingController } from '../../bot-training/api/bot-training.controller';
+import { NestEnvConfigService } from '../../env-config/nest-env-config.service';
 import { AppController } from './app.controller';
-import { NestEnvConfigService } from '../infrastructure/env-config/nest-env-config.service';
 
 @Module({
   imports: [
@@ -26,8 +28,11 @@ import { NestEnvConfigService } from '../infrastructure/env-config/nest-env-conf
     }),
   ],
   providers: [
-    //NestEnvConfigService,
+    {
+      provide: TrainingHandlerService,
+      useValue: new TrainingHandlerService(),
+    },
   ],
-  controllers: [AppController],
+  controllers: [AppController, BotTrainingController],
 })
 export class AppModule {}
