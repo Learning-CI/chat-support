@@ -77,7 +77,8 @@
     "coveragePathIgnorePatterns": [
       ".module.ts",
       ".main.ts",
-      ".mock.ts"
+      ".mock.ts",
+      "infrastructure/migrations/*"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
