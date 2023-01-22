@@ -78,7 +78,8 @@
       ".module.ts",
       ".main.ts",
       ".mock.ts",
-      "infrastructure/migrations/*"
+      "infrastructure/migrations/*",
+      "infrastructure/env-config/*"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
