@@ -1,5 +1,12 @@
-export class InvalidNumberError extends Error {
+import { DefaultError } from './default.error';
+
+export class InvalidNumberError extends DefaultError {
   constructor(key: string, value: number) {
-    super(`Invalid number for ${key}: ${value}`);
+    super({
+      message: `Invalid number for ${key}: ${value}`,
+      statusCode: 400,
+    });
+    this.name = InvalidNumberError.name;
+    Object.setPrototypeOf(this, InvalidNumberError.prototype);
   }
 }
