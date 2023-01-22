@@ -1,11 +1,13 @@
 import { Bot } from '../../../@shared/entity/bot';
 import { Trainer } from '../entity/trainer';
 import { TrainingHistory } from '../entity/training-history';
+import { BotTrainingEventDispatcher } from '../event/bot-training-event-dispatcher';
 import { TrainingHistoryRepository } from '../repository/training-history.repository';
 
 export class TrainingService {
   constructor(
     private readonly trainingHistoryRepository: TrainingHistoryRepository,
+    private readonly botTrainingEventDispatcher: BotTrainingEventDispatcher,
   ) {}
 
   async train(
@@ -17,6 +19,7 @@ export class TrainingService {
       newTrainingHistory,
     );
     console.log({ savedHistory });
+    await this.botTrainingEventDispatcher.send(null);
     return null;
   }
 }
