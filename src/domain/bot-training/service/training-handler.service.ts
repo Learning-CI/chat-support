@@ -12,6 +12,7 @@ export class TrainingHandlerService {
     answer: string;
   }): Promise<void> {
     // Check permissions
+    // Create entities
     const bot = new Bot(1, 'Bot 1');
     const trainer = new Trainer(1, 'John');
     const history = new TrainingHistory(

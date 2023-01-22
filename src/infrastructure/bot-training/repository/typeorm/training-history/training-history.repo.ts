@@ -19,7 +19,7 @@ export class TrainingHistoryRepo implements TrainingHistoryRepository {
       botId: entity.getBotId(),
       trainerId: entity.getTrainer().getId(),
     });
-    return savedHistory.toEntityDomain();
+    return TrainingHistoryModel.toEntityDomain(savedHistory);
   }
 
   update(entity: TrainingHistory): Promise<void> {

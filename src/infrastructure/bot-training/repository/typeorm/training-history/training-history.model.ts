@@ -59,12 +59,12 @@ export class TrainingHistoryModel {
   })
   dateModified: Date;
 
-  public toEntityDomain(): TrainingHistory {
+  public static toEntityDomain(model: TrainingHistoryModel): TrainingHistory {
     return new TrainingHistory(
-      this.botId,
+      model.botId,
       new Trainer(1, 'zap'),
-      this.question,
-      this.answer,
+      model.question,
+      model.answer,
     );
   }
 }
