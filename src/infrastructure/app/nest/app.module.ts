@@ -2,9 +2,11 @@ import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { BotTrainingEventHandler } from '../../../domain/bot-training/event/bot-training-event-handler';
 import { TrainingHandlerService } from '../../../domain/bot-training/service/training-handler.service';
 import { TrainingService } from '../../../domain/bot-training/service/training.service';
 import { BotTrainingController } from '../../bot-training/api/nest/bot-training.controller';
+import { BotTrainingConsumer } from '../../bot-training/event/nest-bull/bot-training-consumer';
 import { BotTrainingPublisher } from '../../bot-training/event/nest-bull/bot-training-publisher';
 import { TrainingHistoryModel } from '../../bot-training/repository/typeorm/training-history/training-history.model';
 import { TrainingHistoryRepo } from '../../bot-training/repository/typeorm/training-history/training-history.repo';
@@ -57,6 +59,14 @@ import { AppController } from './app.controller';
   providers: [
     TrainingHistoryRepo,
     BotTrainingPublisher,
+    BotTrainingConsumer,
+    {
+      provide: BotTrainingConsumer,
+      useFactory: (eventHandler: BotTrainingEventHandler) =>
+        new BotTrainingConsumer(eventHandler),
+      inject: [BotTrainingEventHandler],
+    },
+    BotTrainingEventHandler,
     {
       provide: TrainingService,
       useFactory: (
