@@ -12,11 +12,10 @@ export class BotTrainingPublisher implements BotTrainingEventDispatcher {
     });
   }
 
-  async send(event: EventInterface): Promise<void> {
-    const response = await this.botTrainingQueue.add(event, {
+  async send(event: EventInterface<any>): Promise<void> {
+    await this.botTrainingQueue.add(event, {
       attempts: 1,
       removeOnFail: true,
     });
-    console.log({ response });
   }
 }
