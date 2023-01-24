@@ -1,8 +1,11 @@
 import { EventInterface, EventType } from '../../../@shared/event/event';
 import { EventHandler } from '../../../@shared/event/event-handler';
+import { TrainingService } from '../service/training.service';
 import { QuestionAndAnswerToTrain } from './bot-training-events';
 
 export class BotTrainingEventHandler implements EventHandler {
+  constructor(private readonly trainingService: TrainingService) {}
+
   async handle(event: EventInterface<any>): Promise<void> {
     switch (event.type) {
       case EventType.QUESTION_AND_ANSWER_TO_TRAIN:
@@ -13,9 +16,9 @@ export class BotTrainingEventHandler implements EventHandler {
     }
   }
 
-  private async handleQuestionAndAnswerToTrain(
+  private handleQuestionAndAnswerToTrain(
     event: EventInterface<QuestionAndAnswerToTrain>,
   ): Promise<void> {
-    console.log({ eventhandler: event });
+    return this.trainingService.sendQuestionAndAnswerToBot(event);
   }
 }

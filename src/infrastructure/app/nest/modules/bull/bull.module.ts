@@ -1,13 +1,15 @@
 import { BullModule } from '@nestjs/bull';
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { BotTrainingEventHandler } from '../../../../../domain/bot-training/event/bot-training-event-handler';
 import { BotTrainingConsumer } from '../../../../bot-training/event/nest-bull/bot-training-consumer';
 import { BotTrainingPublisher } from '../../../../bot-training/event/nest-bull/bot-training-publisher';
 import { NestEnvConfigService } from '../../../../env-config/nest/nest-env-config.service';
 import { ConfModule } from '../config/config.module';
+import { DomainModule } from '../domain/domain.module';
 
 @Module({
   imports: [
+    forwardRef(() => DomainModule),
     BullModule.forRootAsync({
       imports: [
         {
@@ -39,7 +41,6 @@ import { ConfModule } from '../config/config.module';
         new BotTrainingConsumer(eventHandler),
       inject: [BotTrainingEventHandler],
     },
-    BotTrainingEventHandler,
   ],
   exports: [BotTrainingConsumer, BotTrainingPublisher],
 })
