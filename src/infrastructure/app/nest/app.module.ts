@@ -3,7 +3,7 @@ import { BotTrainingController } from '../../bot-training/api/nest/bot-training.
 import { AppController } from './app.controller';
 import { BullCustomModule } from './modules/bull/bull.module';
 import { ConfModule } from './modules/config/config.module';
-import { DatabaseModule } from './modules/database/database-module';
+import { DatabaseModule } from './modules/database/database.module';
 import { DomainModule } from './modules/domain/domain.module';
 
 @Module({

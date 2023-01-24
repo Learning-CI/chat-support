@@ -7,7 +7,7 @@ import { TrainingService } from '../../../../../domain/bot-training/service/trai
 import { BotTrainingPublisher } from '../../../../bot-training/event/nest-bull/bot-training-publisher';
 import { TrainingHistoryRepo } from '../../../../bot-training/repository/typeorm/training-history/training-history.repo';
 import { BullCustomModule } from '../bull/bull.module';
-import { DatabaseModule } from '../database/database-module';
+import { DatabaseModule } from '../database/database.module';
 
 @Module({
   imports: [DatabaseModule, forwardRef(() => BullCustomModule)],
