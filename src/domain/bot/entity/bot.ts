@@ -1,5 +1,5 @@
-import { MessageSender } from '../../domain/bot-support/interface/message-sender.interface';
-import { SenderType } from '../../domain/bot-support/enum/sender-type.enum';
+import { MessageSender } from '../../bot-support/interface/message-sender.interface';
+import { SenderType } from '../../bot-support/enum/sender-type.enum';
 
 export class Bot implements MessageSender {
   private id: number;
@@ -22,3 +22,5 @@ export class Bot implements MessageSender {
     return this.name;
   }
 }
+
+// this file should be moved

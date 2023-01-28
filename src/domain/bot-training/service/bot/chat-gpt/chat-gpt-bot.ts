@@ -1,15 +1,11 @@
-import { QuestionAndAnswerToTrain } from '../../../event/bot-training-events';
-import { BotManager } from '../bot-manager';
+import { MachineLearningClient } from '../machine-learning-client';
 
-export class ChatGpt3 implements BotManager {
-  async createNewChat(): Promise<string> {
+export class ChatGpt3 implements MachineLearningClient {
+  async createNewContext(): Promise<string> {
     return '1';
   }
 
-  async sendQuestionAndAnswer(
-    chatId: string,
-    data: QuestionAndAnswerToTrain,
-  ): Promise<string> {
+  async train(contextId: string, trainingInformation: string): Promise<string> {
     return 'hello';
   }
 }

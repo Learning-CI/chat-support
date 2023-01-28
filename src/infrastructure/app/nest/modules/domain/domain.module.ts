@@ -1,6 +1,6 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { BotTrainingEventHandler } from '../../../../../domain/bot-training/event/bot-training-event-handler';
-import { BotManagerFactory } from '../../../../../domain/bot-training/service/bot/bot-manager.factory';
+import { MachineLearningFactory } from '../../../../../domain/bot-training/service/bot/machine-learning.factory';
 import { ChatGpt3 } from '../../../../../domain/bot-training/service/bot/chat-gpt/chat-gpt-bot';
 import { TrainingHandlerService } from '../../../../../domain/bot-training/service/training-handler.service';
 import { TrainingService } from '../../../../../domain/bot-training/service/training.service';
@@ -13,8 +13,8 @@ import { DatabaseModule } from '../database/database.module';
   imports: [DatabaseModule, forwardRef(() => BullCustomModule)],
   providers: [
     {
-      provide: BotManagerFactory,
-      useFactory: (chatGpt3: ChatGpt3) => new BotManagerFactory(chatGpt3),
+      provide: MachineLearningFactory,
+      useFactory: (chatGpt3: ChatGpt3) => new MachineLearningFactory(chatGpt3),
       inject: [ChatGpt3],
     },
     {
@@ -22,14 +22,18 @@ import { DatabaseModule } from '../database/database.module';
       useFactory: (
         trainingHistoryRepo: TrainingHistoryRepo,
         botTrainingPublisher: BotTrainingPublisher,
-        botManagerFactory: BotManagerFactory,
+        machineLearningFactory: MachineLearningFactory,
       ) =>
         new TrainingService(
           trainingHistoryRepo,
           botTrainingPublisher,
-          botManagerFactory,
+          machineLearningFactory,
         ),
-      inject: [TrainingHistoryRepo, BotTrainingPublisher, BotManagerFactory],
+      inject: [
+        TrainingHistoryRepo,
+        BotTrainingPublisher,
+        MachineLearningFactory,
+      ],
     },
     {
       provide: TrainingHandlerService,
