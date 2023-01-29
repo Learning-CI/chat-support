@@ -1,4 +1,4 @@
 export interface MachineLearningClient {
-  createNewContext(): Promise<string>;
-  train(contextId: string, trainingInformation: string): Promise<string>;
+  createContext(): Promise<string>;
+  sendPrompt(contextId: string, prompt: string): Promise<string>;
 }

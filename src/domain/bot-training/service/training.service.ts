@@ -5,13 +5,13 @@ import { TrainingHistory } from '../entity/training-history';
 import { BotTrainingEventDispatcher } from '../event/bot-training-event-dispatcher';
 import { QuestionAndAnswerToTrain } from '../event/bot-training-events';
 import { TrainingHistoryRepository } from '../repository/training-history.repository';
-import { MachineLearningFactory } from './bot/machine-learning.factory';
+import { MachineLearningBotService } from '../../machine-learning/service/machine-learning-bot.service';
 
 export class TrainingService {
   constructor(
     private readonly trainingHistoryRepository: TrainingHistoryRepository,
     private readonly botTrainingEventDispatcher: BotTrainingEventDispatcher,
-    private readonly machineLearningFactory: MachineLearningFactory,
+    private readonly machineLearningBotService: MachineLearningBotService,
   ) {}
 
   async train(
@@ -26,22 +26,19 @@ export class TrainingService {
       type: EventType.QUESTION_AND_ANSWER_TO_TRAIN,
       date: new Date(),
       content: {
-        trainingData: savedHistory,
+        botId: savedHistory.getBotId(),
+        question: savedHistory.getQuestion(),
+        answer: savedHistory.getAnswer(),
       },
     };
     await this.botTrainingEventDispatcher.send(event);
   }
 
-  async sendQuestionAndAnswerToBot(
+  async sendQuestionAndAnswerToAI(
     event: EventInterface<QuestionAndAnswerToTrain>,
   ) {
-    const { trainingData } = event.content;
-    const machineLearningClient =
-      await this.machineLearningFactory.getInstance();
-    const response = await machineLearningClient.train(
-      '',
-      'question: aaa, answer: aaaa',
+    await this.machineLearningBotService.trainMachineLearningProviders(
+      event.content,
     );
-    console.log({ response });
   }
 }

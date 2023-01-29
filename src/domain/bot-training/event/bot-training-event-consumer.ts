@@ -9,8 +9,8 @@ export abstract class BotTrainingEventConsumer implements EventConsumer {
     payload: any,
   ): EventInterface<any>;
 
-  process(data: any): Promise<void> {
+  async process(data: any): Promise<void> {
     const event = this.convertExternalPayloadToDomainEvent(data);
-    return this.eventHandler.handle(event);
+    await this.eventHandler.handle(event);
   }
 }

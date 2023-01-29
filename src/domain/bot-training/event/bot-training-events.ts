@@ -1,5 +1,5 @@
-import { TrainingHistory } from '../entity/training-history';
-
 export interface QuestionAndAnswerToTrain {
-  trainingData: TrainingHistory;
+  botId: number;
+  question: string;
+  answer: string;
 }

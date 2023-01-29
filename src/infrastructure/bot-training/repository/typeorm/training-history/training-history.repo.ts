@@ -22,7 +22,7 @@ export class TrainingHistoryRepo implements TrainingHistoryRepository {
     return TrainingHistoryModel.toEntityDomain(savedHistory);
   }
 
-  update(entity: TrainingHistory): Promise<void> {
+  update(entity: TrainingHistory): Promise<TrainingHistory> {
     return null;
   }
   findOne(id: number): Promise<TrainingHistory> {
