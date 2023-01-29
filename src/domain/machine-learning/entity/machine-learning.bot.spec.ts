@@ -11,6 +11,7 @@ describe('MachineLearningBot', () => {
     machineLearning = new MachineLearning(1, 'ML Model 1');
     bot = new Bot(1, 'Bot 1');
     machineLearningBot = new MachineLearningBot(
+      1,
       machineLearning,
       bot,
       true,
@@ -54,6 +55,7 @@ describe('MachineLearningBot', () => {
       'should return $expected if conversation_id is $conversation_id',
       ({ conversation_id, expected }) => {
         machineLearningBot = new MachineLearningBot(
+          1,
           machineLearning,
           bot,
           true,
