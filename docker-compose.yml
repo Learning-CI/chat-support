@@ -14,6 +14,9 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REDIS_PASSWORD=password
+      - OPENAI_API_KEY=YOUR_KEY_HERE
+      - OPENAI_MODEL=text-davinci-003
+      - OPENAI_MAX_TOKENS=4000
 
     volumes:
       - .:/app

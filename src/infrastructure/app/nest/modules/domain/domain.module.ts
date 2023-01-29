@@ -10,15 +10,17 @@ import { BullCustomModule } from '../bull/bull.module';
 import { DatabaseModule } from '../database/database.module';
 import { MachineLearningBotService } from '../../../../../domain/machine-learning/service/machine-learning-bot.service';
 import { MachineLearningBotRepo } from '../../../../machine-learning/repository/typeorm/machine-learning-bot.repo';
+import { NestEnvConfigService } from '../../../../env-config/nest/nest-env-config.service';
 
 @Module({
   imports: [DatabaseModule, forwardRef(() => BullCustomModule)],
   providers: [
+    NestEnvConfigService,
     {
       provide: MachineLearningFactory,
-      useFactory: (chatGpt3: ChatGpt3OpenAI) =>
-        new MachineLearningFactory(chatGpt3),
-      inject: [ChatGpt3OpenAI],
+      useFactory: (nestEnvConfigService: NestEnvConfigService) =>
+        new MachineLearningFactory(nestEnvConfigService),
+      inject: [NestEnvConfigService],
     },
     {
       provide: MachineLearningBotService,
@@ -62,7 +64,6 @@ import { MachineLearningBotRepo } from '../../../../machine-learning/repository/
         new BotTrainingEventHandler(trainingService),
       inject: [TrainingService],
     },
-    ChatGpt3OpenAI,
   ],
 
   exports: [TrainingService, TrainingHandlerService, BotTrainingEventHandler],

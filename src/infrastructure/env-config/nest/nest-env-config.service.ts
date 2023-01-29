@@ -4,6 +4,7 @@ import {
   EnvConfigService,
   DatabaseConfig,
   RedisConfig,
+  OpenAiConfig,
 } from '../../../@shared/env-config/env-config.interface';
 
 @Injectable()
@@ -25,6 +26,14 @@ export class NestEnvConfigService implements EnvConfigService {
       host: this.nestConfig.get('REDIS_HOST'),
       port: this.nestConfig.get('REDIS_PORT'),
       password: this.nestConfig.get('REDIS_PASSWORD'),
+    };
+  }
+
+  getOpenAi(): OpenAiConfig {
+    return {
+      apiKey: this.nestConfig.get('OPENAI_API_KEY'),
+      model: this.nestConfig.get('OPENAI_MODEL'),
+      maxTokens: this.nestConfig.get('OPENAI_MAX_TOKENS'),
     };
   }
 }

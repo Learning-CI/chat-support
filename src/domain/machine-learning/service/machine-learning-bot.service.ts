@@ -18,28 +18,44 @@ export class MachineLearningBotService {
       );
 
     const sendingTrainingDataToProviders = botProviders.map((botProvider) => {
-      return this.trainMachineLearningProvider(botProvider);
+      return this.trainMachineLearningProvider(botProvider, dataToTrain);
     });
     await Promise.allSettled(sendingTrainingDataToProviders);
   }
 
   private async trainMachineLearningProvider(
     machineLearningBot: MachineLearningBot,
+    dataToTrain: QuestionAndAnswerToTrain,
   ): Promise<BotResponse> {
-    const botId = machineLearningBot.getBot().getId();
-    const machineLearningId = machineLearningBot.getMachineLearning().getId();
-    const machineLearningClient =
-      this.machineLearningFactory.getTrainingInstance(machineLearningId);
-    const contextId = await this.getOrCreateContext(
-      machineLearningClient,
-      machineLearningBot,
-    );
-    const response = await machineLearningClient.sendPrompt(
-      contextId,
-      'QUESTION AND ANSWER',
-    );
-    console.log({ response });
-    return { botId, machineLearningId, response };
+    let botId: number;
+    let machineLearningId: number;
+    try {
+      botId = machineLearningBot.getBot().getId();
+      machineLearningId = machineLearningBot.getMachineLearning().getId();
+      console.log(
+        `Started training botId: ${botId} with machineLearningId: ${machineLearningId}`,
+      );
+      const machineLearningClient =
+        this.machineLearningFactory.getTrainingInstance(machineLearningId);
+      const contextId = await this.getOrCreateContext(
+        machineLearningClient,
+        machineLearningBot,
+      );
+      const response = await machineLearningClient.train(
+        contextId,
+        `Question: ${dataToTrain.question} Answer: ${dataToTrain.answer}}`,
+      );
+      console.log(
+        `Finished training botId: ${botId} with machineLearningId: ${machineLearningId}`,
+      );
+      return { botId, machineLearningId, response };
+    } catch (error) {
+      console.error(
+        `The following error ocurred: "${error.message}" while while training botId: ${botId} with machineLearningId: ${machineLearningId}`,
+      );
+      console.error({ errorDetails: error });
+      throw error;
+    }
   }
 
   private async getOrCreateContext(
