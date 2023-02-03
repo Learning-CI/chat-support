@@ -1,4 +1,4 @@
-import { Bot } from '../../../@shared/entity/bot';
+import { Bot } from '../../bot/entity/bot';
 import { Trainer } from '../entity/trainer';
 import { TrainingHistory } from '../entity/training-history';
 import { TrainingService } from './training.service';

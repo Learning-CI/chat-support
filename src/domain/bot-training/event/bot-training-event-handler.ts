@@ -16,9 +16,9 @@ export class BotTrainingEventHandler implements EventHandler {
     }
   }
 
-  private handleQuestionAndAnswerToTrain(
+  private async handleQuestionAndAnswerToTrain(
     event: EventInterface<QuestionAndAnswerToTrain>,
   ): Promise<void> {
-    return this.trainingService.sendQuestionAndAnswerToBot(event);
+    await this.trainingService.sendQuestionAndAnswerToAI(event);
   }
 }

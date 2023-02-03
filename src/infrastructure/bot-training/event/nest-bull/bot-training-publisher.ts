@@ -6,11 +6,7 @@ import { BotTrainingEventDispatcher } from '../../../../domain/bot-training/even
 
 @Injectable()
 export class BotTrainingPublisher implements BotTrainingEventDispatcher {
-  constructor(@InjectQueue('bot-training') private botTrainingQueue: Queue) {
-    this.botTrainingQueue.on('error', (error: Error) => {
-      console.log(error);
-    });
-  }
+  constructor(@InjectQueue('bot-training') private botTrainingQueue: Queue) {}
 
   async send(event: EventInterface<any>): Promise<void> {
     await this.botTrainingQueue.add(event, {
